@@ -1,7 +1,8 @@
 import React, { useEffect, useRef } from 'react'
 import '../components/css_component_files/HeroSection.css'
-import bg_img from '../assets/images/download.jpg'
 import Typed from 'typed.js'
+import bg_img from "../assets/images/bgimg.png"
+
 
 const HeroSection = () => {
 
@@ -34,20 +35,24 @@ const HeroSection = () => {
     }
   };
   return (
-    <div className='heroSection flex justify-between px-36 items-center text-white bg-gray-900  h-lvh'>
-      <div>
-        <h1 className='text-5xl font-bold'>Saleem Shahzad</h1>
-        <h2 className=' py-5 text-4xl '>I'm <span className='' ref={typedElement} ></span></h2>
+    <div 
+    style={{
+      backgroundImage: `url(${bg_img})`
+  }}
+    className='heroSection pt-32 md:pt-0 flex flex-col md:flex-row justify-between md:px-10 lg:px-36 items-center text-white bg-gray-900 h-full md:h-lvh'>
+      <div className=' '>
+        <h1 className='text-2xl md:text-5xl font-bold'>Saleem Shahzad</h1>
+        <h2 className='py-3 md:py-5 text-2xl md:text-4xl '>I'm <span className='' ref={typedElement} ></span></h2>
         <button className='text-yellow-400 hover:text-black border border-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-yellow-300 dark:text-yellow-300 dark:hover:text-black dark:hover:bg-yellow-400 dark:focus:ring-yellow-900'>Contact ME</button>
       </div>
      
-      <div className="heroSection_Code bg-gray-900 text-white rounded-lg border-[1px] border-blue-700 w-[45%]">
+      <div className="heroSection_Code bg-gray-950 text-white rounded-lg border-[1px] border-blue-700 my-12 md:my-0 w-[90%] md:w-[45%]">
       <div className=' border-b-2  border-blue-800 flex px-4 py-5 '>
           <div className='h-3 w-3 bg-yellow-300 rounded-full '></div>
           <div className='h-3 w-3 bg-green-500 rounded-full mx-1 '></div>
           <div className='h-3 w-3 bg-pink-500 rounded-full '></div>
         </div>
-        <div className='px-6 py-4'>
+        <div className='px-2 md:px-6 py-4'>
         <p className="text-lg font-bold">const <span className=' text-pink-500'>coder</span> = &#123;</p>
       <div className="ml-6">
        

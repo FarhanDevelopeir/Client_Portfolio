@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from 'react'
-import '../components/css_component_files/HeroSection.css'
 import Typed from 'typed.js'
 import bg_img from "../assets/images/bgimg.png"
 

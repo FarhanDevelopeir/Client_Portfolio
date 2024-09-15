@@ -1,17 +1,23 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import Navbar from './components/Navbar'
-import HeroSection from './components/HeroSection'
+import "./App.css";
+import Main from "./components/Main";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import HeroSection from "./components/HeroSection";
+import Projects from "./components/Projects";
 
 function App() {
   return (
     <>
-    <Navbar/>
-    <HeroSection/>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Main />}>
+            <Route index element={<HeroSection />} />
+            <Route path="/projects" element={<Projects />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+      {/* <Main/> */}
     </>
-  )
+  );
 }
 
-export default App
+export default App;

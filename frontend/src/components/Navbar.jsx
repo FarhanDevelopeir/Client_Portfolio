@@ -135,7 +135,7 @@ function Navbar() {
                   smooth={true}
                   offset={-70}
                   duration={500}
-                  to="AboutMe"
+                  to="certificates"
                   className="navbar--content"
                 >
                   <span
@@ -145,7 +145,7 @@ function Navbar() {
                         : ""
                     } rounded`}
                   >
-                    About Me
+                    Cerificates
                   </span>
                 </Link>
               </li>
@@ -157,7 +157,7 @@ function Navbar() {
                   smooth={true}
                   offset={-70}
                   duration={500}
-                  to="MySkills"
+                  to="blogs"
                   className="navbar--content"
                 >
                   <span
@@ -167,7 +167,7 @@ function Navbar() {
                         : ""
                     } rounded`}
                   >
-                    My Skills
+                    Blogs
                   </span>
                 </Link>
               </li>

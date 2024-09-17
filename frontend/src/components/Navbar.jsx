@@ -42,7 +42,7 @@ function Navbar() {
         <div>
           <a
             href="#"
-            className="flex items-center space-x-3 rtl:space-x-reverse w-40 text-2xl md:text-3xl font-bold"
+            className="flex items-center text-gray-100 space-x-3 rtl:space-x-reverse w-40 text-2xl md:text-3xl font-bold"
           >
             Portfolio
           </a>

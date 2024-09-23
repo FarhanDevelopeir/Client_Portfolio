@@ -96,8 +96,8 @@ function Navbar() {
                   <span
                     className={`block py-2 px-3 ${
                       selectedItem === "Home"
-                        ? "md:bg-transparent md:text-yellow-300 md:dark:text-yellow-300"
-                        : ""
+                        ? " bg-blue-950 text-yellow-300 "
+                        : " text-gray-100"
                     } rounded`}
                   >
                     Home
@@ -118,8 +118,8 @@ function Navbar() {
                   <span
                     className={`block py-2 px-3 ${
                       selectedItem === "Portfolio"
-                        ? "md:bg-transparent md:text-yellow-300 md:dark:text-yellow-300"
-                        : ""
+                        ? " bg-blue-950 text-yellow-300"
+                        : " text-gray-100"
                     } rounded`}
                   >
                     Portfolio
@@ -141,8 +141,8 @@ function Navbar() {
                   <span
                     className={`block py-2 px-3 ${
                       selectedItem === "About"
-                        ? "md:text-yellow-300 md:dark:text-yellow-300"
-                        : ""
+                        ? " bg-blue-950 text-yellow-300"
+                        : " text-gray-100"
                     } rounded`}
                   >
                     Cerificates
@@ -163,8 +163,8 @@ function Navbar() {
                   <span
                     className={`block py-2 px-3 ${
                       selectedItem === "Skills"
-                        ? "md:bg-transparent md:text-yellow-300 md:dark:text-yellow-300"
-                        : ""
+                        ? "bg-blue-950 text-yellow-300 "
+                        : " text-gray-100"
                     } rounded`}
                   >
                     Blogs

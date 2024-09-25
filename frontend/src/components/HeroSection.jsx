@@ -38,7 +38,7 @@ const HeroSection = () => {
     style={{
       backgroundImage: `url(${bg_img})`
   }}
-    className='heroSection pt-32 md:pt-0 flex flex-col md:flex-row justify-between md:px-10 lg:px-36 items-center text-white bg-gray-900 h-full md:h-lvh'>
+    className='heroSection pt-32 md:pt-20 flex flex-col md:flex-row justify-between md:px-10 lg:px-36 items-center text-white bg-gray-900 h-full md:h-lvh'>
       <div className=' '>
         <h1 className='text-2xl md:text-5xl font-bold'>Saleem Shahzad</h1>
         <h2 className='py-3 md:py-5 text-2xl md:text-4xl '>I'm <span className='' ref={typedElement} ></span></h2>

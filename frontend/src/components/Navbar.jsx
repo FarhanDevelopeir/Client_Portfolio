@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 function Navbar() {
   const [navActive, setNavActive] = useState(false);
-  const [selectedItem, setSelectedItem] = useState("Home");
+  const [selectedItem, setSelectedItem] = useState("");
   const [navbarBg, setNavbarBg] = useState("bg-transparent");
   const [menuBorder, setMenuBorder] = useState("border");
 
@@ -24,7 +24,7 @@ function Navbar() {
       setNavbarBg("bg-gray-950");
       setMenuBorder('border-none')
     } else {
-      setNavbarBg("bg-transparent");
+      setNavbarBg("bg-gray-950");
       setMenuBorder('border')
     }
   };
@@ -36,7 +36,7 @@ function Navbar() {
   return (
     <nav
     
-      className={`${navbarBg} transition-colors duration-300 fixed w-full z-20 top-0 md:px-12 md:py-3 border-gray-200 dark:border-gray-600 dark:text-white`}
+      className={` bg-gray-950 transition-colors duration-300 fixed w-full z-20 top-0 md:px-12 md:py-3  border-gray-600 text-white`}
     >
       <div className="flex items-center justify-between p-4">
         <div>

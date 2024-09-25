@@ -19,7 +19,7 @@ const Projects = () => {
         </div>
         <div className="  grid gap-5 md:grid-cols-3">
           
-            <div class="max-w-sm  border rounded-lg hover:shadow-lg hover:border-white hover:shadow-blue-900 bg-gray-800 border-gray-700 transition-all duration-300">
+            <div class="max-w-sm  border rounded-lg shadow-lg border-white shadow-blue-900 bg-gray-800  transition-all duration-300">
               <a href="#">
                 <img class="rounded-t-lg" src={project1} alt="" />
               </a>
@@ -53,7 +53,7 @@ const Projects = () => {
                 </a>
               </div>
             </div>
-            <div class="max-w-sm  border rounded-lg hover:shadow-lg hover:border-white hover:shadow-blue-900 bg-gray-800 border-gray-700 transition-all duration-300">
+            <div class="max-w-sm  border rounded-lg shadow-lg border-white shadow-blue-900 bg-gray-800  transition-all duration-300">
               <a href="#">
                 <img class="rounded-t-lg" src={project1} alt="" />
               </a>
@@ -87,7 +87,7 @@ const Projects = () => {
                 </a>
               </div>
             </div>
-            <div class="max-w-sm  border rounded-lg hover:shadow-lg hover:border-white hover:shadow-blue-900 bg-gray-800 border-gray-700 transition-all duration-300">
+            <div class="max-w-sm  border rounded-lg shadow-lg border-white shadow-blue-900 bg-gray-800  transition-all duration-300">
               <a href="#">
                 <img class="rounded-t-lg" src={project1} alt="" />
               </a>

@@ -11,7 +11,7 @@ const Admin_SideBar = () => {
   return (
     <div className="  md:bg-gradient-to-b from-gray-950  to-gray-600 md:text-gray-300 pt-5 text-sm md:text-lg  flex justify-around md:justify-normal md:flex-col md:w-[15%] ">
   <Link to={'/adminpanel'} >
-      <button className={` ${activeItem === 'Blogs' ? 'bg-gray-950 md:bg-gray-500 text-white border':''} w-[93%] p-2 md:p-4 border md:border-none md:mx-2  rounded-3xl md:rounded-xl  flex  `}
+      <button className={` ${activeItem === 'Blogs' ? 'bg-gray-950 md:bg-gray-500 text-white border':''} w-[93%] p-2 md:p-4 border md:border-none md:mx-2  rounded-3xl md:rounded-xl  flex items-center  `}
       onClick={()=>dispatch(SiderbarItem("Blogs"))}
       >
         <svg
@@ -33,7 +33,7 @@ const Admin_SideBar = () => {
       </button>
 </Link>
 <Link to={'/adminpanel/certificates'}>
-      <button className={` ${activeItem === 'Certificates' ? 'bg-gray-950 md:bg-gray-500 text-white border':''} w-[93%] p-2 md:p-4 border  md:border-none md:mx-2 rounded-3xl md:rounded-xl  flex  `}
+      <button className={` ${activeItem === 'Certificates' ? 'bg-gray-950 md:bg-gray-500 text-white border':''} w-[93%] p-2 md:p-4 border  md:border-none md:mx-2 rounded-3xl md:rounded-xl  flex  items-center `}
        onClick={()=>dispatch(SiderbarItem("Certificates"))}
       >
         <svg
@@ -55,7 +55,7 @@ const Admin_SideBar = () => {
       </button>
       </Link>
       <Link to={'/adminpanel/projects'}>
-      <button className={` ${activeItem === 'Projects' ? 'bg-gray-950 md:bg-gray-500 text-white border':''} w-[93%] p-2 md:p-4 border md:border-none md:mx-2 rounded-3xl md:rounded-xl  flex  `}
+      <button className={` ${activeItem === 'Projects' ? 'bg-gray-950 md:bg-gray-500 text-white border':''} w-[93%] p-2 md:p-4 border md:border-none md:mx-2 rounded-3xl md:rounded-xl  flex items-center `}
        onClick={()=>dispatch(SiderbarItem("Projects"))}
       >
         <svg

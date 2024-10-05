@@ -1,16 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { SiderbarItem } from "./features/AdminSidebar_Slice";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 
 const Admin_SideBar = () => {
   const activeItem = useSelector((state)=>state.sideBar.activeSiderbarItem)
   const dispatch = useDispatch()
+  const location = useLocation()
+
+   // Get the query parameter value
+   useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const sidebarItem = params.get("item"); // For example, ?item=Projects
+
+    if (sidebarItem && sidebarItem !== activeItem) {
+      dispatch(SiderbarItem(sidebarItem));
+      console.log(`Sidebar item from query: ${sidebarItem}`); // Log the query parameter
+    }
+  }, [location, dispatch, activeItem]);
   
   return (
     <div className="  md:bg-gradient-to-b from-gray-950  to-gray-600 md:text-gray-300 pt-5 text-sm md:text-lg  flex justify-around md:justify-normal md:flex-col md:w-[15%] ">
-  <Link to={'/adminpanel'} >
+  <Link to={'/adminpanel?item=Blogs'} >
       <button className={` ${activeItem === 'Blogs' ? 'bg-gray-950 md:bg-gray-500 text-white border':''} w-[93%] p-2 md:p-4 border md:border-none md:mx-2  rounded-3xl md:rounded-xl  flex items-center  `}
       onClick={()=>dispatch(SiderbarItem("Blogs"))}
       >
@@ -32,7 +44,7 @@ const Admin_SideBar = () => {
         <h1 className="flex-1">Blogs</h1>
       </button>
 </Link>
-<Link to={'/adminpanel/certificates'}>
+<Link to={'/adminpanel/certificates?item=Certificates'}>
       <button className={` ${activeItem === 'Certificates' ? 'bg-gray-950 md:bg-gray-500 text-white border':''} w-[93%] p-2 md:p-4 border  md:border-none md:mx-2 rounded-3xl md:rounded-xl  flex  items-center `}
        onClick={()=>dispatch(SiderbarItem("Certificates"))}
       >
@@ -54,7 +66,7 @@ const Admin_SideBar = () => {
         <h1 className="flex-1">Certificates</h1>
       </button>
       </Link>
-      <Link to={'/adminpanel/projects'}>
+      <Link to={'/adminpanel/projects?item=Projects'}>
       <button className={` ${activeItem === 'Projects' ? 'bg-gray-950 md:bg-gray-500 text-white border':''} w-[93%] p-2 md:p-4 border md:border-none md:mx-2 rounded-3xl md:rounded-xl  flex items-center `}
        onClick={()=>dispatch(SiderbarItem("Projects"))}
       >

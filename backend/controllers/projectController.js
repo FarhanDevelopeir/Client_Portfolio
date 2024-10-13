@@ -1,11 +1,24 @@
 const Project = require('../models/Project');
+const uploadImage = require('../utils/cloudinaryUpload')
+
 
 // Add a new project
 exports.addProject = async (req, res) => {
-  const { title, img, description } = req.body;
 
+  console.log(req.body);
+  console.log(req.file);
+  
+  let image = null;
+  if (req.file) {
+    const filePath = req.file.path;
+    image = await uploadImage(filePath)
+
+  }
+  const { title, description } = req.body;
+  console.log('Uploaded Image URL:', image);
+  
   try {
-    const newProject = new Project({ title, img, description });
+    const newProject = new Project({ title, image, description });
     await newProject.save();
     res.status(201).json(newProject);
   } catch (err) {

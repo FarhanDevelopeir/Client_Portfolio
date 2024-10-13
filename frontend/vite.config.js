@@ -7,6 +7,7 @@
 // })
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import {BASE_URL} from '../frontend/src/constant'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -14,7 +15,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://saleem-backend.vercel.app', // Replace with your backend URL
+        target: BASE_URL, // Replace with your backend URL
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ''),
       },

@@ -3,6 +3,7 @@ import Add_New from '../Add_New';
 import { useDispatch, useSelector } from 'react-redux';
 import { projects } from '../features/Project_Features/Project_Slice';
 import axios from 'axios';
+import { BASE_URL } from '../../../constant';
 
 const AllProjects = () => {
   const allProjects = useSelector((state) => state.project_Slice?.Projects|| []);  // Ensure state is accessed correctly
@@ -13,7 +14,7 @@ const AllProjects = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await axios.get('/api/projects');  // Update API endpoint
+        const response = await axios.get(`${BASE_URL}/api/projects`);  // Update API endpoint
         console.log(response.data);  // Check if data is being fetched correctly
         dispatch(projects(response.data));  // Dispatch the fetched data to the Redux store
       } catch (error) {

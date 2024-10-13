@@ -1,11 +1,10 @@
 import axios from "axios";
-// import { URL } from "http://localhost:5000";
 
 export const AddProject = async (formData) => {
   console.log("api working");
   console.log("Form Data: ", formData);
   try {
-    const res = await axios.post(`http://localhost:5000/api/projects/add`, formData, {
+    const res = await axios.post(`/api/projects/add`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },

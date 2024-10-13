@@ -2,6 +2,8 @@ const express = require('express');
 const connectDB = require('./config/db');
 const dotenv = require('dotenv');
 const cors = require('cors');
+const { VercelRequest, VercelResponse } = require('@vercel/node');
+
 
 // Load environment variables
 dotenv.config();
@@ -21,6 +23,11 @@ app.use('/api/projects', require('./routes/projectRoutes'));
 app.use('/api/blogs', require('./routes/blogRoutes'));
 app.use('/api/certificates', require('./routes/certificateRoutes'));
 
-// Start the server
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+// // Start the server
+// const PORT = process.env.PORT || 5000;
+// app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+// Export the app for Vercel
+module.exports = (req = VercelRequest, res = VercelResponse) => {
+      app(req, res);
+  };

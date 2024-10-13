@@ -19,9 +19,9 @@ app.use(cors()); // Enable CORS for all routes
 app.use(express.json()); // Parse JSON request body
 
 // Routes
-app.use('/api/projects', require('./routes/projectRoutes'));
-app.use('/api/blogs', require('./routes/blogRoutes'));
-app.use('/api/certificates', require('./routes/certificateRoutes'));
+app.use('/api/projects', require('./src/routes/projectRoutes'));
+app.use('/api/blogs', require('./src/routes/blogRoutes'));
+app.use('/api/certificates', require('./src/routes/certificateRoutes'));
 
 // // Start the server
 const PORT = process.env.PORT || 5000;

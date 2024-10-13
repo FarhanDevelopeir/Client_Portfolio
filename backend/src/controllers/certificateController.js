@@ -1,4 +1,4 @@
-const Certificate = require('../src/models/Certificate');
+const Certificate = require('../models/Certificate');
 
 // Add a new certificate
 exports.addCertificate = async (req, res) => {

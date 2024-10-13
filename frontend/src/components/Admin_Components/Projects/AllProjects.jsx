@@ -13,7 +13,7 @@ const AllProjects = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/projects');  // Update API endpoint
+        const response = await axios.get('/api/projects');  // Update API endpoint
         console.log(response.data);  // Check if data is being fetched correctly
         dispatch(projects(response.data));  // Dispatch the fetched data to the Redux store
       } catch (error) {

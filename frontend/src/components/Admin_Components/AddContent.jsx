@@ -146,7 +146,6 @@ const AddContent = () => {
             </button>
           </form>
         </div>
-        <p className=" text-white">{editorContent}</p>
       </div>
     </div>
   );

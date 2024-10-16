@@ -21,7 +21,7 @@ const Admin_SideBar = () => {
   }, [location, dispatch, activeItem]);
   
   return (
-    <div className="  md:bg-gradient-to-b  md:fixed md:h-full   from-gray-950  to-gray-600 md:text-gray-300 pt-5 text-sm md:text-lg  flex justify-around md:justify-normal md:flex-col md:w-[25%] lg:w-[20%] xl:w-[15%] ">
+    <div className=" bg-white pb-2 md:pb-0 z-10 md:bg-gradient-to-b  fixed w-full md:h-full   from-gray-950  to-gray-600 md:text-gray-300 pt-5 text-sm md:text-lg  flex justify-around md:justify-normal md:flex-col md:w-[25%] lg:w-[20%] xl:w-[15%] ">
   <Link to={'/adminpanel?item=Blogs'} >
       <button className={` ${activeItem === 'Blogs' ? 'bg-gray-950 md:bg-gray-500 text-white border':''} w-[93%] p-2 md:p-4 border md:border-none md:mx-2  rounded-3xl md:rounded-xl  flex items-center  `}
       onClick={()=>dispatch(SiderbarItem("Blogs"))}

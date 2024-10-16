@@ -4,14 +4,15 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { AddProjectAsync } from "./features/Project_Features/Project_Slice";
 import { ContextBox } from "./features/AdminSidebar_Slice";
+import { AddCertificateAsync } from "./features/Certificates_Features/Certificate_Slice";
+import { AddBlogAsync } from "./features/Blog_Features/Blog_Slice";
 
 const AddContent = () => {
   const activeItem = useSelector((state) => state.sideBar.activeSiderbarItem);
-  const openContentBox = useSelector((state)=>state.sideBar.openContentBox)
+  const openContentBox = useSelector((state) => state.sideBar.openContentBox);
   console.log(openContentBox);
-  
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     image: null,
     title: "",
@@ -42,7 +43,16 @@ const AddContent = () => {
     SubmitFormData.append("title", formData.title);
     SubmitFormData.append("image", formData.image);
     SubmitFormData.append("description", editorContent);
-    dispatch(AddProjectAsync(SubmitFormData))
+    // Conditional dispatches based on activeItem
+    if (activeItem === "Projects") {
+      dispatch(AddProjectAsync(SubmitFormData));
+    }
+    if (activeItem === "Certificates") {
+      dispatch(AddCertificateAsync(SubmitFormData));
+    }
+    if (activeItem === "Blogs") {
+      dispatch(AddBlogAsync(SubmitFormData));
+    }
 
     console.log(SubmitFormData);
 
@@ -71,7 +81,9 @@ const AddContent = () => {
       <div className=" relative border rounded-lg p-4 bg-gray-900 w-[98%] md:w-[50%]">
         <div className=" text-white flex justify-end absolute top-2 right-2">
           <svg
-            onClick={()=>{dispatch(ContextBox(false))}}
+            onClick={() => {
+              dispatch(ContextBox(false));
+            }}
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"

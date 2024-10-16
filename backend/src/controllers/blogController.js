@@ -1,11 +1,23 @@
 const Blog = require('../models/Blog');
+const uploadImage = require('../utils/cloudinaryUpload');
 
 // Add a new blog
 exports.addBlog = async (req, res) => {
-  const { title, img, description, published_date } = req.body;
+  
+  console.log(req.body);
+  console.log(req.file);
+
+  let image = null;
+  if(req.file){
+    const filePath = req.file.path
+    image = await uploadImage(filePath)
+  }
+
+  const { title, description } = req.body;
+  console.log('Uploaded Image URL:', image);
 
   try {
-    const newBlog = new Blog({ title, img, description, published_date });
+    const newBlog = new Blog({ title, image, description });
     await newBlog.save();
     res.status(201).json(newBlog);
   } catch (err) {

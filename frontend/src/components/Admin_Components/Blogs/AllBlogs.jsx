@@ -29,7 +29,7 @@ const AllBlogs = () => {
     <div>
       <Add_New />
       {/* <h1 className="text-3xl text-center mt-4">All Projects</h1> */}
-      <div className="text-xs pt-40 md:pt-48 md:text-[16px]  pb-5 px-1 md:px-8 mx-2 md:mx-12 overflow-x-auto">
+      <div className="text-xs pt-40 md:pt-32 md:text-[16px]  pb-5 px-1 md:px-8 mx-2 md:mx-12 overflow-x-auto">
         
         <table className="min-w-full bg-white  rounded">
         <thead>

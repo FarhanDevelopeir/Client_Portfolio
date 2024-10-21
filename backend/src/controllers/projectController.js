@@ -26,6 +26,33 @@ exports.addProject = async (req, res) => {
   }
 };
 
+// Update Project
+exports.updateProject = async (req, res) => {
+  const { id } = req.params; // Get the blog ID from the route parameters
+  const { title, description } = req.body; // Get the updated fields from the request body
+  let imageUrl = null;
+
+  try {
+    if (req.file) {
+      const uploadResult = await uploadImage(req.file.path);
+      imageUrl = uploadResult;
+    }
+    // find project by id and update it
+    const updatedProject = await Project.findByIdAndUpdate(
+      id,
+      { title, description, ...(imageUrl && { image: imageUrl }) },
+      { new: true }
+    );
+    if (!updatedProject) {
+      return res.status(404).json({ message: "Project not found" });
+    }
+    res.status(200).json(updatedProject); // Send back the updated blog
+  } catch (error) {
+    res.status(500).json({ message: "Error with the project", error });
+  }
+};
+
+
 // Get all projects
 exports.getProjects = async (req, res) => {
   try {

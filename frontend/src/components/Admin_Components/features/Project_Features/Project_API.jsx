@@ -17,3 +17,20 @@ export const AddProject = async (formData) => {
     throw error; // Properly throw the error for asyncThunk to catch
   }
 };
+
+export const UpdateProject = async (formData, id) => {
+  console.log("Updating project with id:", id);
+  try {
+    const res = await axios.put(`${BASE_URL}/api/projects/edit/${id}`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    const data = res.data;
+    return data;
+  } catch (error) {
+    console.error("Error occurred during project update:", error);
+    throw error; // Properly throw the error for asyncThunk to catch
+  }
+};
+

@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { AddProject } from "./Project_API";
+import { AddProject, UpdateProject } from "./Project_API";
 import { ContextBox } from "../AdminSidebar_Slice";
 
 const initialState = {
@@ -16,6 +16,19 @@ export const AddProjectAsync = createAsyncThunk(
   }
 );
 
+export const UpdateProjectAsync = createAsyncThunk(
+  "item/updateProject",
+  async ({ formData, id }, { dispatch }) => {
+    try {
+      const data = await UpdateProject(formData, id);
+      return { id, data };
+    } catch (error) {
+      console.error("Update failed:", error);
+      throw error;
+    }
+  }
+);
+
 export const Project_Slice = createSlice({
   name: "project_Slice",
   initialState,
@@ -27,10 +40,17 @@ export const Project_Slice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(AddProjectAsync.fulfilled, (state, action) => {
+    builder
+    .addCase(AddProjectAsync.fulfilled, (state, action) => {
       state.Projects.push(action.payload);
-
-    });
+    })
+    .addCase(UpdateProjectAsync.fulfilled, (state, action) => {
+      const { id, data } = action.payload;
+      const index = state.Projects.findIndex((project) => project.id === id);
+      if (index !== -1) {
+        state.Projects[index] = data; // Update the project with the new data
+      }
+    })
   },
 });
 

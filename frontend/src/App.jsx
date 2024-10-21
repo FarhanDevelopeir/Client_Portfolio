@@ -11,6 +11,7 @@ import Admin_Authentication from "./components/Admin_Components/Admin_Authentica
 import AllBlogs from "./components/Admin_Components/Blogs/AllBlogs";
 import AllProjects from "./components/Admin_Components/Projects/AllProjects";
 import AllCertificates from "./components/Admin_Components/Certificates/AllCertificates";
+import AddContent from "./components/Admin_Components/AddContent";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
                 path="/adminpanel/certificates"
                 element={<AllCertificates />}
               />
+              <Route path="/adminpanel/:item/edit/:id" element={< AddContent/>} />
             </Route>
           </Route>
         </Routes>

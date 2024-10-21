@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { AddCertificate } from "./Certificate_API";
+import { AddCertificate, UpdateCertificate } from "./Certificate_API";
 import { ContextBox } from "../AdminSidebar_Slice";
 
 const initialState = {
@@ -11,8 +11,20 @@ export const AddCertificateAsync = createAsyncThunk(
   async (formData, {dispatch}) => {
     console.log(formData);
     const data = await AddCertificate(formData);
-    dispatch(ContextBox(false));
     return data;
+  }
+);
+
+export const UpdateCertificateAsync = createAsyncThunk(
+  "item/updateCertificate",
+  async ({ formData, id }, { dispatch }) => {
+    try {
+      const data = await UpdateCertificate(formData, id);
+      return { id, data };
+    } catch (error) {
+      console.error("Update failed:", error);
+      throw error;
+    }
   }
 );
 
@@ -27,9 +39,17 @@ export const Certificate_Slice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(AddCertificateAsync.fulfilled, (state, action) => {
+    builder
+    .addCase(AddCertificateAsync.fulfilled, (state, action) => {
       state.Certificates.push(action.payload);
-    });
+    })
+    .addCase(UpdateCertificateAsync.fulfilled, (state, action) => {
+      const { id, data } = action.payload;
+      const index = state.Certificates.findIndex((certificate) => certificate.id === id);
+      if (index !== -1) {
+        state.Certificates[index] = data; // Update the certficate with the new data
+      }
+    })
   },
 });
 

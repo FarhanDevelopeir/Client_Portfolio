@@ -44,7 +44,7 @@ const Admin_SideBar = () => {
         <h1 className="flex-1">Blogs</h1>
       </button>
 </Link>
-<Link to={'/adminpanel/certificates?item=Certificates'}>
+<Link to={`/adminpanel/certificates?item=Certificates`}>
       <button className={` ${activeItem === 'Certificates' ? 'bg-gray-950 md:bg-gray-500 text-white border':''} w-[93%] p-2 md:p-4 border  md:border-none md:mx-2 rounded-3xl md:rounded-xl  flex  items-center `}
        onClick={()=>dispatch(SiderbarItem("Certificates"))}
       >

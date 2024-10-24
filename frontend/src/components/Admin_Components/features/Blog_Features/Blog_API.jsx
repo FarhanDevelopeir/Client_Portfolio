@@ -33,3 +33,14 @@ export const UpdateBlog = async (formData, id) => {
     throw error; // Properly throw the error for asyncThunk to catch
   }
 };
+
+export const DeleteBlog = async (id) => {
+  try {
+    const res = await axios.delete(`${BASE_URL}/api/blogs/delete/${id}`);
+    const data = res.data;
+    return data;
+  } catch (error) {
+    console.error("Error occurred during blog delete:", error);
+    throw error; // Properly throw the error for asyncThunk to catch
+  }
+};

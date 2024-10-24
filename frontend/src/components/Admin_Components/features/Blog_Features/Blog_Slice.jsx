@@ -1,16 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { AddBlog, UpdateBlog } from "./Blog_API";
-import { ContextBox } from "../AdminSidebar_Slice";
-
-
-
-
+import { AddBlog, DeleteBlog, UpdateBlog } from "./Blog_API";
+import { ContextBox, DeleteBox } from "../AdminSidebar_Slice";
 
 const initialState = {
   Blogs: []
 };
-
-
 
 export const AddBlogAsync = createAsyncThunk(
   "item/addBlog",
@@ -36,6 +30,20 @@ export const UpdateBlogAsync = createAsyncThunk(
   }
 );
 
+export const DeleteBlogAsync = createAsyncThunk(
+  "item/deleteBlog",
+  async (id, { dispatch }) => {
+    try {
+      const data = await DeleteBlog(id);
+      dispatch(DeleteBox(null)); // Close any UI elements if necessary
+      return id; // Return the blog ID to remove from the state
+    } catch (error) {
+      console.error("Delete failed:", error);
+      throw error;
+    }
+  }
+);
+
 export const Blog_Slice = createSlice({
   name: "blog_Slice",
   initialState,
@@ -53,11 +61,18 @@ export const Blog_Slice = createSlice({
     })
     .addCase(UpdateBlogAsync.fulfilled, (state, action) => {
       const { id, data } = action.payload;
-      const index = state.Blogs.findIndex((blog) => blog.id === id);
+      const index = state.Blogs.findIndex((blog) => blog._id === id);
       if (index !== -1) {
         state.Blogs[index] = data; // Update the blog with the new data
       }
     })
+    .addCase(DeleteBlogAsync.fulfilled, (state, action) => {
+      const id = action.payload;
+      console.log(id);
+      state.Blogs = state.Blogs.filter((blog) => blog._id !== id); // Remove the blog with the given id
+      console.log(state.Blogs);
+      
+    });
 }
 });
 

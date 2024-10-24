@@ -12,6 +12,7 @@ import AllBlogs from "./components/Admin_Components/Blogs/AllBlogs";
 import AllProjects from "./components/Admin_Components/Projects/AllProjects";
 import AllCertificates from "./components/Admin_Components/Certificates/AllCertificates";
 import AddContent from "./components/Admin_Components/AddContent";
+import Deletebox from "./components/Admin_Components/DeleteBox";
 
 function App() {
   return (
@@ -38,6 +39,8 @@ function App() {
                 element={<AllCertificates />}
               />
               <Route path="/adminpanel/:item/edit/:id" element={< AddContent/>} />
+              <Route path="/adminpanel/:item/delete/:id" element={< Deletebox/>} />
+
             </Route>
           </Route>
         </Routes>

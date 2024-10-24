@@ -6,11 +6,14 @@ import { BASE_URL } from "../../../constant";
 import { blogs } from "../features/Blog_Features/Blog_Slice";
 // import Link from 'react-router-dom'
 import { Link, useLocation } from "react-router-dom";
+import { DeleteBox } from "../features/AdminSidebar_Slice";
+import Deletebox from "../DeleteBox";
 
 const AllBlogs = () => {
   const allBlogs = useSelector((state) => state.blog_Slice?.Blogs || []); // Ensure state is accessed correctly
   console.log(allBlogs);
-  const activeItem = useSelector((state)=>state.sideBar.activeSiderbarItem)
+  const activeItem = useSelector((state)=>state.sideBar.activeSiderbarItem);
+  const deleteBox = useSelector((state)=> state.sideBar.deleteBox);
 
   const dispatch = useDispatch();
 
@@ -84,7 +87,8 @@ const AllBlogs = () => {
                       </svg>
                     </button>
                   </Link>
-                  <button className="text-red-500 hover:underline">
+                  {/* <Link to={`${activeItem}/delete/${blog._id}`}> */}
+                  <button onClick={()=>dispatch(DeleteBox(blog._id))} className="text-red-500 hover:underline">
                   <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -100,11 +104,13 @@ const AllBlogs = () => {
                       />
                     </svg>
                   </button>
+                  {/* </Link> */}
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+        {deleteBox && <Deletebox/>}
       </div>
     </div>
   );

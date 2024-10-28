@@ -2,6 +2,8 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { DeleteBox } from "./features/AdminSidebar_Slice";
 import { DeleteBlogAsync } from "./features/Blog_Features/Blog_Slice";
+import { DeleteCertificateAsync } from "./features/Certificates_Features/Certificate_Slice";
+import { DeleteProjectAsync } from "./features/Project_Features/Project_Slice";
 
 const Deletebox = () => {
   const activeItem = useSelector((state) => state.sideBar.activeSiderbarItem);
@@ -14,9 +16,10 @@ const Deletebox = () => {
 
   const deleteItem = (id) => {
     if (activeItem === "Projects") {
-      // dispatch(AddProjectAsync(SubmitFormData));
+      dispatch(DeleteProjectAsync(id));
     }
     if (activeItem === "Certificates") {
+      dispatch(DeleteCertificateAsync(id));
     }
     if (activeItem === "Blogs") {
       dispatch(DeleteBlogAsync(id));

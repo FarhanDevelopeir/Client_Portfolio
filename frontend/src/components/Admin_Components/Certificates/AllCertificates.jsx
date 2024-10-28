@@ -5,12 +5,15 @@ import axios from "axios";
 import { BASE_URL } from "../../../constant";
 import { certificates } from "../features/Certificates_Features/Certificate_Slice";
 import { Link } from "react-router-dom";
+import Deletebox from "../DeleteBox";
+import { DeleteBox } from "../features/AdminSidebar_Slice";
 
 const AllCertificates = () => {
   const allCertificates = useSelector(
     (state) => state.certificate_Slice?.Certificates || []
   ); // Ensure state is accessed correctly
   const activeItem = useSelector((state) => state.sideBar.activeSiderbarItem);
+  const deleteBox = useSelector((state)=> state.sideBar.deleteBox);
   console.log(allCertificates);
   const dispatch = useDispatch();
 
@@ -80,7 +83,7 @@ const AllCertificates = () => {
                       </svg>
                     </button>
                   </Link>
-                  <button className="text-red-500 hover:underline">
+                  <button onClick={()=>dispatch(DeleteBox(certificate._id))}  className="text-red-500 hover:underline">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -101,6 +104,7 @@ const AllCertificates = () => {
             ))}
           </tbody>
         </table>
+        {deleteBox && <Deletebox/>}
       </div>
     </div>
   );

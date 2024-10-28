@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { AddProject, UpdateProject } from "./Project_API";
-import { ContextBox } from "../AdminSidebar_Slice";
+import { AddProject, DeleteProject, UpdateProject } from "./Project_API";
+import { ContextBox, DeleteBox } from "../AdminSidebar_Slice";
 
 const initialState = {
   Projects: []
@@ -29,6 +29,20 @@ export const UpdateProjectAsync = createAsyncThunk(
   }
 );
 
+export const DeleteProjectAsync = createAsyncThunk(
+  "item/deleteProject",
+  async (id, { dispatch }) => {
+    try {
+      const data = await DeleteProject(id);
+      dispatch(DeleteBox(null)); // Close any UI elements if necessary
+      return id; // Return the Project ID to remove from the state
+    } catch (error) {
+      console.error("Delete failed:", error);
+      throw error;
+    }
+  }
+);
+
 export const Project_Slice = createSlice({
   name: "project_Slice",
   initialState,
@@ -51,6 +65,12 @@ export const Project_Slice = createSlice({
         state.Projects[index] = data; // Update the project with the new data
       }
     })
+    .addCase(DeleteProjectAsync.fulfilled, (state, action) => {
+      const id = action.payload;
+      console.log(id);
+      state.Projects = state.Projects.filter((Project) => Project._id !== id); // Remove the Project with the given id
+      console.log(state.Projects);
+    });
   },
 });
 

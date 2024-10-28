@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { AddCertificate, UpdateCertificate } from "./Certificate_API";
-import { ContextBox } from "../AdminSidebar_Slice";
+import { AddCertificate, DeleteCertificate, UpdateCertificate } from "./Certificate_API";
+import { ContextBox, DeleteBox } from "../AdminSidebar_Slice";
 
 const initialState = {
   Certificates: []
@@ -28,6 +28,20 @@ export const UpdateCertificateAsync = createAsyncThunk(
   }
 );
 
+export const DeleteCertificateAsync = createAsyncThunk(
+  "item/deleteCertificate",
+  async (id, { dispatch }) => {
+    try {
+      const data = await DeleteCertificate(id);
+      dispatch(DeleteBox(null)); // Close any UI elements if necessary
+      return id; // Return the Certificate ID to remove from the state
+    } catch (error) {
+      console.error("Delete failed:", error);
+      throw error;
+    }
+  }
+);
+
 export const Certificate_Slice = createSlice({
   name: "certificate_Slice",
   initialState,
@@ -50,6 +64,12 @@ export const Certificate_Slice = createSlice({
         state.Certificates[index] = data; // Update the certficate with the new data
       }
     })
+    .addCase(DeleteCertificateAsync.fulfilled, (state, action) => {
+      const id = action.payload;
+      console.log(id);
+      state.Certificates = state.Certificates.filter((Certificate) => Certificate._id !== id); // Remove the Certificate with the given id
+      console.log(state.Certificates);
+    });
   },
 });
 

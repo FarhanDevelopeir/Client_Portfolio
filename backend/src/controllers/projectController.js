@@ -46,9 +46,28 @@ exports.updateProject = async (req, res) => {
     if (!updatedProject) {
       return res.status(404).json({ message: "Project not found" });
     }
-    res.status(200).json(updatedProject); // Send back the updated blog
+    res.status(200).json(updatedProject); // Send back the updated Project
   } catch (error) {
     res.status(500).json({ message: "Error with the project", error });
+  }
+};
+
+
+// Delete Project
+exports.deleteProject = async (req, res) => {
+  const { id } = req.params; // Get the Project ID from the route parameters
+
+  try {
+    // Find Project by ID and delete it
+    const deletedProject = await Project.findByIdAndDelete(id);
+
+    if (!deletedProject) {
+      return res.status(404).json({ message: 'Project not found' });
+    }
+
+    res.status(200).json({ message: 'Project deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'Error deleting the Project', error });
   }
 };
 

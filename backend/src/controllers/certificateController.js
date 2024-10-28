@@ -49,6 +49,26 @@ exports.updateCertificate = async (req, res) => {
   }
 };
 
+
+// Delete Certificate
+exports.deleteCertificate = async (req, res) => {
+  const { id } = req.params; // Get the Certificate ID from the route parameters
+
+  try {
+    // Find Certificate by ID and delete it
+    const deletedCertificate = await Certificate.findByIdAndDelete(id);
+
+    if (!deletedCertificate) {
+      return res.status(404).json({ message: 'Certificate not found' });
+    }
+
+    res.status(200).json({ message: 'Certificate deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'Error deleting the Certificate', error });
+  }
+};
+
+
 // Get all certificates
 exports.getCertificates = async (req, res) => {
   try {

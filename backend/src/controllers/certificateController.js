@@ -1,5 +1,13 @@
 const Certificate = require("../models/Certificate");
 const uploadImage = require("../utils/cloudinaryUpload");
+const cloudinary = require('cloudinary').v2;
+
+cloudinary.config({
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.API_KEY,
+    api_secret: process.env.API_SECRET,
+    secure: true
+});
 
 // Add a new certificate
 exports.addCertificate = async (req, res) => {
@@ -25,7 +33,7 @@ exports.addCertificate = async (req, res) => {
 
 // Update Certificate
 exports.updateCertificate = async (req, res) => {
-  const { id } = req.params; // Get the blog ID from the route parameters
+  const { id } = req.params; // Get the Certificate ID from the route parameters
   const { title, description } = req.body; // Get the updated fields from the request body
   let imageUrl = null;
 
@@ -34,7 +42,7 @@ exports.updateCertificate = async (req, res) => {
       const uploadResult = await uploadImage(req.file.path);
       imageUrl = uploadResult;
     }
-    // find blog by id and update it
+    // find Certificate by id and update it
     const updatedCertificate = await Certificate.findByIdAndUpdate(
       id,
       { title, description, ...(imageUrl && { image: imageUrl }) },
@@ -43,7 +51,7 @@ exports.updateCertificate = async (req, res) => {
     if (!updatedCertificate) {
       return res.status(404).json({ message: "Certificate not found" });
     }
-    res.status(200).json(updatedCertificate); // Send back the updated blog
+    res.status(200).json(updatedCertificate); // Send back the updated Certificate
   } catch (error) {
     res.status(500).json({ message: "Error with the certificate", error });
   }
@@ -56,13 +64,31 @@ exports.deleteCertificate = async (req, res) => {
 
   try {
     // Find Certificate by ID and delete it
-    const deletedCertificate = await Certificate.findByIdAndDelete(id);
+    const deletedCertificate = await Certificate.findById(id);
 
-    if (!deletedCertificate) {
-      return res.status(404).json({ message: 'Certificate not found' });
+     if (!deletedCertificate) {
+       return res.status(404).json({ message: 'Certificate not found' });
+     }
+ 
+     if (deletedCertificate.image) {
+      const imagePublicId = deletedCertificate.image.split('/').pop().split('.')[0];
+      console.log(`Extracted public_id for Cloudinary: ${imagePublicId}`);
+
+      // Attempt to delete the image from Cloudinary
+      try {
+        await cloudinary.uploader.destroy(imagePublicId);
+        console.log(`Successfully deleted image from Cloudinary: ${imagePublicId}`);
+      } catch (cloudinaryError) {
+        console.error(`Image not found on Cloudinary or error occurred: `, cloudinaryError.message);
+        console.log(`Proceeding to delete the Certificate from the database without stopping.`);
+      }
+    } else {
+      console.log('No associated image found for this Certificate');
     }
 
-    res.status(200).json({ message: 'Certificate deleted successfully' });
+    // Delete the Certificate from the database
+    await Certificate.findByIdAndDelete(id);
+    console.log(`Successfully deleted Certificate with ID: ${id}`);
   } catch (error) {
     res.status(500).json({ message: 'Error deleting the Certificate', error });
   }

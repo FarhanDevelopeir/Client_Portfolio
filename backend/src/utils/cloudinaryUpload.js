@@ -12,10 +12,10 @@ const uploadImage = async (imagePath) => {
     try {
         // Upload the image
         const result = await cloudinary.uploader.upload(imagePath);
-        console.log(result);
+        console.log("cloudinary_Img:",result);
         return result.secure_url;
     } catch (error) {
-        console.error(error);
+        console.error("cloudinary Error:",error);
     }
 };
 

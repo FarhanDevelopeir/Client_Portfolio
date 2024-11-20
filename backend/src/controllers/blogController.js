@@ -1,5 +1,13 @@
 const Blog = require('../models/Blog');
 const uploadImage = require('../utils/cloudinaryUpload');
+const cloudinary = require('cloudinary').v2;
+
+cloudinary.config({
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.API_KEY,
+    api_secret: process.env.API_SECRET,
+    secure: true
+});
 
 // Add a new blog
 exports.addBlog = async (req, res) => {
@@ -64,13 +72,39 @@ exports.deleteBlog = async (req, res) => {
 
   try {
     // Find blog by ID and delete it
-    const deletedBlog = await Blog.findByIdAndDelete(id);
+    // const deletedBlog = await Blog.findByIdAndDelete(id);
 
-    if (!deletedBlog) {
-      return res.status(404).json({ message: 'Blog not found' });
+    // if (!deletedBlog) {
+    //   return res.status(404).json({ message: 'Blog not found' });
+    // }
+
+    // res.status(200).json({ message: 'Blog deleted successfully' });
+     // Find blog by ID
+     const deletedBlog = await Blog.findById(id);
+
+     if (!deletedBlog) {
+       return res.status(404).json({ message: 'Blog not found' });
+     }
+ 
+     if (deletedBlog.image) {
+      const imagePublicId = deletedBlog.image.split('/').pop().split('.')[0];
+      console.log(`Extracted public_id for Cloudinary: ${imagePublicId}`);
+
+      // Attempt to delete the image from Cloudinary
+      try {
+        await cloudinary.uploader.destroy(imagePublicId);
+        console.log(`Successfully deleted image from Cloudinary: ${imagePublicId}`);
+      } catch (cloudinaryError) {
+        console.error(`Image not found on Cloudinary or error occurred: `, cloudinaryError.message);
+        console.log(`Proceeding to delete the blog from the database without stopping.`);
+      }
+    } else {
+      console.log('No associated image found for this blog');
     }
 
-    res.status(200).json({ message: 'Blog deleted successfully' });
+    // Delete the blog from the database
+    await Blog.findByIdAndDelete(id);
+    console.log(`Successfully deleted blog with ID: ${id}`);
   } catch (error) {
     res.status(500).json({ message: 'Error deleting the blog', error });
   }

@@ -1,5 +1,13 @@
 const Project = require('../models/Project');
 const uploadImage = require('../utils/cloudinaryUpload')
+const cloudinary = require('cloudinary').v2;
+
+cloudinary.config({
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.API_KEY,
+    api_secret: process.env.API_SECRET,
+    secure: true
+});
 
 
 // Add a new project
@@ -59,13 +67,31 @@ exports.deleteProject = async (req, res) => {
 
   try {
     // Find Project by ID and delete it
-    const deletedProject = await Project.findByIdAndDelete(id);
+    const deletedProject = await Project.findById(id);
 
-    if (!deletedProject) {
-      return res.status(404).json({ message: 'Project not found' });
+     if (!deletedProject) {
+       return res.status(404).json({ message: 'Project not found' });
+     }
+ 
+     if (deletedProject.image) {
+      const imagePublicId = deletedProject.image.split('/').pop().split('.')[0];
+      console.log(`Extracted public_id for Cloudinary: ${imagePublicId}`);
+
+      // Attempt to delete the image from Cloudinary
+      try {
+        await cloudinary.uploader.destroy(imagePublicId);
+        console.log(`Successfully deleted image from Cloudinary: ${imagePublicId}`);
+      } catch (cloudinaryError) {
+        console.error(`Image not found on Cloudinary or error occurred: `, cloudinaryError.message);
+        console.log(`Proceeding to delete the Project from the database without stopping.`);
+      }
+    } else {
+      console.log('No associated image found for this Project');
     }
 
-    res.status(200).json({ message: 'Project deleted successfully' });
+    // Delete the Project from the database
+    await Project.findByIdAndDelete(id);
+    console.log(`Successfully deleted Project with ID: ${id}`);
   } catch (error) {
     res.status(500).json({ message: 'Error deleting the Project', error });
   }

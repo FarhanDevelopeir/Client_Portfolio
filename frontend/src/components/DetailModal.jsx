@@ -30,14 +30,14 @@ const DetailModal = ({ isOpen, onClose, data }) => {
           {/* Content Section */}
           <div className="p-8 bg-gray-900">
             {/* Title */}
-            <h2 className="text-4xl font-bold text-white mb-6 border-b border-gray-700 pb-4">
+            <h2 className="text-2xl md:text-4xl font-bold text-white mb-6 border-b border-gray-700 pb-4">
               {data.title}
             </h2>
 
             {/* Description */}
             <div className="mb-8">
-              <h3 className="text-2xl font-semibold mb-4 text-yellow-400">Description</h3>
-              <p className="text-gray-300 h-[100px]  leading-relaxed text-lg"
+              <h3 className= "text-xl md:text-2xl font-semibold mb-4 text-yellow-400">Description</h3>
+              <p className="text-gray-300 h-[100px]  leading-relaxed text-sm md:text-lg"
                 dangerouslySetInnerHTML={{ __html: data.description }}
               />
             </div>

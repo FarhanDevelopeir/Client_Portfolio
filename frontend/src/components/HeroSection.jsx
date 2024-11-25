@@ -9,7 +9,7 @@ const HeroSection = () => {
 
   useEffect(() => {
     const options = {
-      strings: ['Data analytics', 'ML Specialist', 'Web Developer'],
+      strings: ['Web Developer'],
       loop: true,
       typeSpeed: 100,
       backSpeed: 50,

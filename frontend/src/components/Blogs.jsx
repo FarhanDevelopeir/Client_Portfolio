@@ -1,15 +1,18 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import bg_img from "../assets/images/bgimg.png"
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { BASE_URL } from '../constant';
 import { blogs } from './Admin_Components/features/Blog_Features/Blog_Slice';
+import DetailModal from './DetailModal'
 
 
 const Blogs = () => {
   const allBlogs = useSelector((state)=>state.blog_Slice?.Blogs)
   const dispatch = useDispatch()
   console.log(allBlogs);
+  const [selectedBlog, setSelectedBlog] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   
 
   useEffect(() => {
@@ -30,7 +33,7 @@ const Blogs = () => {
     style={{
       backgroundImage: `url(${bg_img})`,
     }}
-    className="heroSection pt-32 md:pt-0     md:px-10 lg:px-36  text-white bg-gray-900 h-full "
+    className={`heroSection pt-32 md:pt-0     md:px-10 lg:px-36  text-white bg-gray-900 ${allBlogs.length > 4?"h-full":"h-screen"} `}
   >
     <div className="w-[80%] m-auto md:w-full md:pt-36">
       <div className=" mb-10 rounded-lg px-4 py-2 w-full">
@@ -64,10 +67,12 @@ const Blogs = () => {
                   </a>
 
                   <a
-                  
-                    className="flex items-center w-28 text-yellow-400 hover:text-black border border-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-yellow-300 dark:text-yellow-300 dark:hover:text-black dark:hover:bg-yellow-400 dark:focus:ring-yellow-900"
+                    onClick={() => {
+                      setSelectedBlog(project);
+                      setIsModalOpen(true);
+                    }}
+                    className="flex items-center w-28 cursor-pointer text-yellow-400 hover:text-black border border-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-yellow-300 dark:text-yellow-300 dark:hover:text-black dark:hover:bg-yellow-400 dark:focus:ring-yellow-900"
                   >
-                    {/* {project.description} */}
                     View 
                     <svg
                       className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
@@ -92,6 +97,11 @@ const Blogs = () => {
         )}
       </div>
     </div>
+    <DetailModal
+      isOpen={isModalOpen}
+      onClose={() => setIsModalOpen(false)}
+      data={selectedBlog}
+    />
   </div>
   )
 }

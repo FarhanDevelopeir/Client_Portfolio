@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import bg_img from "../assets/images/bgimg.png";
 import project1 from "../assets/images/bg.jpg";
 import project2 from "../assets/images/bgpic.png";
@@ -7,8 +7,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { projects } from "./Admin_Components/features/Project_Features/Project_Slice";
 import axios from "axios";
 import { BASE_URL } from "../constant";
+import DetailModal from "./DetailModal";
 
 const Projects = () => {
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const allProjects = useSelector(
     (state) => state.project_Slice?.Projects || []
   );
@@ -34,7 +38,7 @@ const Projects = () => {
       style={{
         backgroundImage: `url(${bg_img})`,
       }}
-      className="heroSection pt-32 md:pt-0     md:px-10 lg:px-36  text-white bg-gray-900 h-full "
+      className={`heroSection pt-32 md:pt-0     md:px-10 lg:px-36  text-white bg-gray-900  ${allProjects.length > 4?"h-full":"h-screen"} `} 
     >
       <div className="w-[80%] m-auto md:w-full md:pt-36">
         <div className=" mb-10 rounded-lg px-4 py-2 w-full">
@@ -144,29 +148,29 @@ const Projects = () => {
             <div className="grid gap-5 md:grid-cols-3">
               {allProjects.map((project, index) => (
                 <div
-                  key={index} // Always use a unique key for items in lists
-                  className="max-w-sm border rounded-lg shadow-lg border-white shadow-blue-900 bg-gray-800 transition-all duration-300"
+                  key={index}
+                  className="max-w-sm border rounded-lg shadow-lg border-white shadow-blue-900 bg-gray-800 transition-all duration-300 hover:shadow-xl hover:shadow-blue-900"
                 >
-                  <a>
+                  <div>
                     <img
-                      className="rounded-t-lg h-[250px] w-full"
+                      className="rounded-t-lg h-[250px] w-full object-cover"
                       src={project.image}
                       alt={project.title}
                     />
-                  </a>
+                  </div>
                   <div className="p-5">
-                    <a>
-                      <h5 className="mb-2 text-2xl font-semibold text-white">
-                        {project.title}
-                      </h5>
-                    </a>
+                    <h5 className="mb-2 text-2xl font-semibold text-white">
+                      {project.title}
+                    </h5>
 
-                    <a
-                      
-                      className="flex items-center w-28 text-yellow-400 hover:text-black border border-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-yellow-300 dark:text-yellow-300 dark:hover:text-black dark:hover:bg-yellow-400 dark:focus:ring-yellow-900"
+                    <button
+                      onClick={() => {
+                        setSelectedProject(project);
+                        setIsModalOpen(true);
+                      }}
+                      className="flex items-center w-28 cursor-pointer text-yellow-400 hover:text-black border border-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-yellow-300 dark:text-yellow-300 dark:hover:text-black dark:hover:bg-yellow-400 dark:focus:ring-yellow-900"
                     >
-                      {/* {project.description} */}
-                      View 
+                      View
                       <svg
                         className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
                         aria-hidden="true"
@@ -182,13 +186,19 @@ const Projects = () => {
                           d="M1 5h12m0 0L9 1m4 4L9 9"
                         />
                       </svg>
-                    </a>
+                    </button>
                   </div>
                 </div>
               ))}
             </div>
           )}
         </div>
+
+        <DetailModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          data={selectedProject}
+        />
       </div>
     </div>
   );

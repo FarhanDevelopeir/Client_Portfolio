@@ -38,7 +38,7 @@ const Projects = () => {
       style={{
         backgroundImage: `url(${bg_img})`,
       }}
-      className={`heroSection pt-32 md:pt-0     md:px-10 lg:px-36  text-white bg-gray-900  ${allProjects.length > 4?"h-full":"h-screen"} `} 
+      className={`heroSection pt-32 md:pt-0     md:px-10 lg:px-36  text-white bg-gray-900    ${allProjects.length >= 1?"h-full md:h-screen":"h-screen"} `} 
     >
       <div className="w-[80%] m-auto md:w-full md:pt-36">
         <div className=" mb-10 rounded-lg px-4 py-2 w-full">

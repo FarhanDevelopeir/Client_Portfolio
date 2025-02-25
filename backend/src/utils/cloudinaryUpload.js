@@ -7,6 +7,7 @@ cloudinary.config({
     secure: true
 });
 
+
 const uploadImage = async (imagePath) => {
 
     try {
